@@ -1,7 +1,7 @@
 const {MongoClient} = require('mongodb');
 
-const MONGO_DB_URL = 'mongodb+srv://adminRap:adminRap@cluster0.iouxd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
-const DB_NAME = 'rap';
+const MONGO_DB_URL = 'LINK_DO_SEU_BANCO';
+const DB_NAME = 'NOME_DO_SEU_BANCO';
 
 const connection = () => MongoClient.connect(MONGO_DB_URL, {
     useNewUrlParser: true,
