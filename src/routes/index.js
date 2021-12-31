@@ -2,6 +2,7 @@ import { Router } from 'express';
 import VerifyToken from '../../middleware/usuarioMiddleware';
 import { atualizarProduto, criarProduto, deletarProduto, listaProdutos } from '../controllers/produtoController';
 import { createUser, deleteUser, getAll, updateUser } from '../controllers/usuarioController';
+import { atualizarYtVideo, criarYtVideo, deletarYtVideo, listaYtVideos } from '../controllers/videoController';
 import { requestLogin } from '../models/usuarioModel';
 
 const routes = new Router();
@@ -31,6 +32,16 @@ routes.post('/produto',VerifyToken, criarProduto);
 routes.delete('/produto/:id',VerifyToken, deletarProduto);
 
 routes.put('/produto/:id',VerifyToken, atualizarProduto);
+
+//Rotas dos Videos do Youtube
+
+routes.get('/video',VerifyToken, listaYtVideos);
+
+routes.post('/video',VerifyToken, criarYtVideo);
+
+routes.delete('/video/:id',VerifyToken, deletarYtVideo);
+
+routes.put('/video/:id',VerifyToken, atualizarYtVideo);
 
 
 export default routes;
