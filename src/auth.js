@@ -8,4 +8,8 @@ function salt () {
     return crypto.randomBytes(16).toString("hex");
 }
 
-export {criarSenha, salt};
+function verificaSenha(senha, saltsenha, hash) {
+    return hash === criarSenha(senha, saltsenha);
+}
+
+export {criarSenha, salt, verificaSenha};

@@ -1,4 +1,4 @@
-import { todos, criar, deletar, atualizar } from "../services/usuarioService"
+import { todos, criar, deletar, atualizar, loginService } from "../services/usuarioService"
 
 const getAll = async (req, res) => {
     const users = await todos();
@@ -6,6 +6,7 @@ const getAll = async (req, res) => {
     const newList = users.map((user) => (
         {
             email: user.email,
+            saltSenha: user.saltsenha,
             _id: user._id
         }
     ));
@@ -37,6 +38,12 @@ const updateUser = async (req, res) => {
     res.status(200).json(user);
 }
 
-const login = async (req, res) => null;
+const loginController = async (req, res) => {
+    const {email, senha } = req.body;
 
-export { getAll, login, createUser, deleteUser, updateUser };
+    const userLogin = await loginService({email, senha});
+
+    res.status(200).json(userLogin);
+};
+
+export { getAll, loginController, createUser, deleteUser, updateUser };

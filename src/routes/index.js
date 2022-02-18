@@ -1,9 +1,8 @@
 import { Router } from 'express';
 import VerifyToken from '../../middleware/usuarioMiddleware';
 import { atualizarProduto, criarProduto, deletarProduto, listaProdutos } from '../controllers/produtoController';
-import { createUser, deleteUser, getAll, updateUser } from '../controllers/usuarioController';
+import { createUser, deleteUser, getAll, updateUser, loginController } from '../controllers/usuarioController';
 import { atualizarYtVideo, criarYtVideo, deletarYtVideo, listaYtVideos } from '../controllers/videoController';
-import { requestLogin } from '../models/usuarioModel';
 
 const routes = new Router();
 
@@ -15,7 +14,7 @@ routes.get('/', (req, res) => {
 
 routes.get('/usuario', VerifyToken, getAll);
 
-routes.get('/login', requestLogin)
+routes.post('/login', loginController)
 
 routes.post('/usuario', createUser);
 
@@ -42,6 +41,7 @@ routes.post('/video',VerifyToken, criarYtVideo);
 routes.delete('/video/:id',VerifyToken, deletarYtVideo);
 
 routes.put('/video/:id',VerifyToken, atualizarYtVideo);
+
 
 
 export default routes;

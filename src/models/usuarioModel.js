@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
 import connection from "../mongoConnection";
 import jwt from 'jsonwebtoken';
-import { criarSenha, salt } from "../auth";
+import { criarSenha, salt, verificaSenha } from "../auth";
 import e from "express";
 
 const SECRET = 'NINGUEM_ACREDITARIA_SE_EU_DISSESSE';
@@ -57,15 +57,8 @@ const login = async ({email, senha}) => {
     return null;
 };
 
-function verificaSenha(senha, saltsenha, hash) {
-    return hash === criarSenha(senha, saltsenha);
-}
-
-const requestLogin = async (req, res) => {
-    const { email, senha } = req.body;
+const requestLogin = async ({email, senha}) => {
     const usuario = await login({ email, senha });
-
-    if (!usuario) return res.status(401).json({message: 'User not found'});
 
     const { _id } = usuario;
     const newToken = jwt.sign(
@@ -78,7 +71,7 @@ const requestLogin = async (req, res) => {
             expiresIn: 86400,
         }
     );
-    return res.status(201).json({ token: newToken });
+    return newToken;
 }
 
 export { getAll, login, newUser, userExists, deleta, atualiza, requestLogin };
